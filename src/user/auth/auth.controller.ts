@@ -1,3 +1,5 @@
+import { UserInfo } from './../decorators/user.decorator';
+import { User } from 'src/user/decorators/user.decorator';
 import {
   SignupDto,
   SigninDto,
@@ -7,6 +9,7 @@ import { AuthService } from './auth.service';
 import {
   Body,
   Controller,
+  Get,
   Param,
   ParseEnumPipe,
   Post,
@@ -52,5 +55,10 @@ export class AuthController {
   @Post('/key')
   generateProductKey(@Body() { userType, email }: generateProductKeyDto) {
     return this.authService.generateProductKey(email, userType);
+  }
+
+  @Get('/me')
+  me(@User() user: UserInfo) {
+    return user;
   }
 }
